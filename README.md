@@ -51,39 +51,7 @@ Trained using: scikit-learn / TensorFlow
 
 Inference runs on mobile app
 
-For training scripts and datasets, see /ai_model.
-
-📂 Repository Structure
-bash
-Copy
-Edit
-SmartGuard/
-├── hardware/         # Circuit diagram, wiring schematic
-├── firmware/         # ESP32 code (Arduino/C++)
-├── app/              # Flutter app source code
-├── ai_model/         # Model training notebook, data, TFLite model
-├── docs/             # Proposal and documentation
-└── README.md
-🛠️ Getting Started
-1. Flash ESP32
-arduino
-Copy
-Edit
-cd firmware/
-Upload code using Arduino IDE or PlatformIO
-2. Run Mobile App
-Install dependencies in /app/
-
-Load .tflite model into app assets
-
-Build and run on Android device
-
-3. Pair BLE and Test
-Power on SmartGuard
-
-Open app and connect to BLE
-
-Ride, simulate head nods, test alerts!
+TO BE EXPLAINED FURTHER LATER
 
 📈 Dataset
 Real-world and synthetic datasets available in /ai_model/dataset.csv
