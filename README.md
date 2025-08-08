@@ -53,9 +53,4 @@ Inference runs on mobile app
 
 TO BE EXPLAINED FURTHER LATER
 
-📈 Dataset
-Real-world and synthetic datasets available in /ai_model/dataset.csv
-
-Collected across 3 states: alert, drowsy, aggressive
-
 Labels: 0 (normal), 1 (microsleep)
