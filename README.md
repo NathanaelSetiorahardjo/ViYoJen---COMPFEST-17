@@ -1,56 +1,57 @@
-# ViYoJen---COMPFEST-17
-Aviel, Yong and Jennifer
+Gaturu — COMPFEST 17 Submission
+Deskripsi Singkat
 
-INTRODUCING [SUPER COOL ANTI MICRO-SLEEP HELMET]
-AI-powered microsleep detection system embedded into a motorcycle helmet. By combining motion sensors (MPU6050), an ESP32 board, BLE communication, and a mobile app with on-device ML inference, it aims to prevent drowsy riding incidents with real-time alerts via buzzer and vibration motor.
+Repository ini berisi kode dan dokumen pendukung untuk proyek Gaturu, sebuah sistem deteksi microsleep berbasis IoT dengan integrasi Machine Learning dan sensor MPU-6050. Proyek ini diajukan dalam rangka kompetisi COMPFEST 17.
 
-🚀 Features
-Real-time head movement tracking via MPU6050
+Struktur Repository
 
-AI-based drowsiness/microsleep detection using mobile device inference
+AI_MODEL/
+Folder ini merupakan arsip lama dari eksperimen awal pengembangan model. Tidak digunakan dalam implementasi akhir.
 
-BLE communication from ESP32 to Android app
+(Root Repository)
+Seluruh file utama yang relevan untuk penilaian tersedia langsung di root repository, tanpa perlu masuk ke dalam folder tambahan.
 
-Buzzer & vibration motor alerts during microsleep events
+Penjelasan File Utama
 
-Data logging and visualization
+ws_server.py
+File inti yang harus dijalankan oleh juri. File ini:
 
-Powered by Li-Po battery with TP4056 charging module
+Membuka WebSocket server untuk menerima data sensor dari ESP32 + MPU-6050.
 
-📦 Hardware Components
-Component	Description
-ESP32 Dev Board	Main MCU with BLE
-MPU6050	3-axis gyroscope + accelerometer
-Piezo Buzzer	Alert actuator
-Vibration Motor	Haptic feedback actuator
-TP4056 Module	Li-Po battery charging + output
-Li-Po Battery (3.7V)	Power supply
-Slide Switch	Power toggle
+Menerapkan logika deteksi microsleep menggunakan kombinasi aturan threshold dan filter Machine Learning.
 
-See /hardware folder for circuit diagram and wiring.
+Mengirimkan status (AWAKE atau MICROSLEEP) kembali ke client, sekaligus mengaktifkan buzzer ketika microsleep terdeteksi.
 
-📲 Mobile App
-Built with: Flutter
-AI Model: TensorFlow Lite (.tflite)
+Menyediakan antarmuka dashboard sederhana agar status dapat dipantau secara langsung.
 
-Features:
-Receives sensor data via BLE
+microsleep_model.pkl dan scaler.pkl
+Model Machine Learning yang sudah dilatih beserta skaler untuk normalisasi data. Keduanya dimuat otomatis oleh ws_server.py.
 
-Runs on-device AI model
+train_microsleep_az_only.py
+Script untuk melatih ulang model berbasis data sumbu Z (az) dari MPU-6050. Tidak perlu dijalankan kecuali jika juri ingin mereplikasi proses pelatihan.
 
-Sends alert signal back to ESP32 via BLE
+dataset.csv
+Dataset contoh yang digunakan dalam proses pelatihan model.
 
-Stores session data locally (SQLite) or online (Firebase - optional)
+Instruksi Bagi Juri
 
-🧠 AI Model
-Input: time-windowed features from MPU6050 (pitch, roll, accel, gyro)
+Pastikan perangkat IoT (ESP32 dengan sensor MPU-6050 dan buzzer aktif) sudah dikonfigurasi sesuai instruksi teknis.
 
-Output: Binary classification (0 = normal, 1 = microsleep)
+Clone repository ini ke komputer lokal.
 
-Trained using: scikit-learn / TensorFlow
+Dari root repository, jalankan perintah berikut:
 
-Inference runs on mobile app
+python ws_server.py
 
-TO BE EXPLAINED FURTHER LATER
 
-Labels: 0 (normal), 1 (microsleep)
+Sistem akan memulai WebSocket server. Saat perangkat IoT terhubung dan mengirimkan data sensor, status akan otomatis ditampilkan di terminal maupun dashboard sederhana.
+
+Jika microsleep terdeteksi, buzzer akan aktif, indikator status akan berubah menjadi "MICROSLEEP", dan jumlah episode microsleep akan tercatat.
+
+Catatan
+
+Folder AI_MODEL/ tidak digunakan dalam implementasi akhir.
+
+Seluruh file yang diperlukan untuk menjalankan proyek sudah tersedia langsung di root repository.
+
+Sistem membutuhkan koneksi jaringan agar komunikasi WebSocket antara ESP32 dan server berjalan dengan baik.
